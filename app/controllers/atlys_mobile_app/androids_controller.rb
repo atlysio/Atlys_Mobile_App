@@ -19,9 +19,18 @@ module AtlysMobileApp
       @android = Android.new
     end
 
-    # GET /androids/1/edit
-    def edit
+
+
+    def render_images(img, size, to)
+
+	image = ::MiniMagick::Image.open(img)
+        image.resize(size)
+        image.format("png")
+        image.write(to)
+
     end
+
+
 
     # POST /androids
     def create
@@ -35,15 +44,7 @@ module AtlysMobileApp
 
 	uploader = ImageUploader.new
 	uploader.store!(icon)
-
-	puts uploader
-	puts uploader.current_path
-
-	image = ::MiniMagick::Image.open(uploader.current_path)
-        image.resize("32x32")
-        image.format("png")
-        image.write("public/icon.png")
-
+	icon_img = uploader.current_path
 
 	if File.exist?("public/android_app.zip")
 		FileUtils.rm_rf("public/android_app.zip")
@@ -93,6 +94,25 @@ module AtlysMobileApp
 	fromfolder = temp_folder+"/app/src/main/java/main/evebusiness"
 	tofolder = temp_folder+"/app/src/main/java/main/"+packge_name
 	FileUtils.mv fromfolder, tofolder
+
+
+	imgfile = temp_folder+"/app/src/main/ic_launcher_web.png"
+	render_images(icon_img, "512x512", imgfile)
+
+	imgfile = temp_folder+"/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+	render_images(icon_img, "72x72", imgfile)
+
+	imgfile = temp_folder+"/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+	render_images(icon_img, "48x48", imgfile)
+
+	imgfile = temp_folder+"/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+	render_images(icon_img, "96x96", imgfile)
+
+	imgfile = temp_folder+"/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+	render_images(icon_img, "144x144", imgfile)
+
+	imgfile = temp_folder+"/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+	render_images(icon_img, "192x192", imgfile)
 
 
 	# zip android source and send to user as download
