@@ -29,8 +29,14 @@ module AtlysMobileApp
 	app_folder = Gem.loaded_specs["atlys_mobile_app"].full_gem_path+"/app/views/atlys_mobile_app/androids/app/."
 	temp_folder = Rails.root.to_s+"/tmp/android_app"
 	zip_location = Rails.root.to_s+"/public/android_app.zip"
- 
-	FileUtils.rm_rf(temp_folder)
+
+	app_name = "New App Render"
+	packge_name = "com.newapp"
+	version_code = "1"
+	version_name = "1.65"
+	domain = "http://mydominanew.com"
+
+	FileUtils.rm_rf(zip_location)
 
 	Dir.mkdir Rails.root.to_s+"/tmp/android_app"
 
@@ -38,12 +44,36 @@ module AtlysMobileApp
 
 	# replace string here
 	rfile = temp_folder+"/app/src/main/AndroidManifest.xml"
-	replace_in_file(rfile, "main.evebusiness", "com.mynewapp")
+	replace_in_file(rfile, "main.evebusiness", packge_name)
+
+	rfile = temp_folder+"/app/build.gradle"
+	replace_in_file(rfile, "main.evebusiness", packge_name)
+
+	rfile = temp_folder+"/app/build.gradle"
+	replace_in_file(rfile, "versionCode 4", "versionCode "+version_code)
+
+	rfile = temp_folder+"/app/build.gradle"
+	replace_in_file(rfile, "versionName '1.4'", "versionName '"+version_name+"'")
+
+	rfile = temp_folder+"/app/src/main/res/values/strings.xml"
+	replace_in_file(rfile, "Eve Business", app_name)
 
 	rfile = temp_folder+"/app/src/main/java/main/evebusiness/FullscreenActivity.java"
-	replace_in_file(rfile, "http://eve-business.com", "http://mydominanew.com")
+	replace_in_file(rfile, "main.evebusiness", packge_name)
 
-        zipfolder(temp_folder, zip_location)
+	file = temp_folder+"/app/src/main/java/main/evebusiness/util/SystemUiHider.java"
+	replace_in_file(rfile, "main.evebusiness", packge_name)
+
+	file = temp_folder+"/app/src/main/java/main/evebusiness/util/SystemUiHiderBase.java"
+	replace_in_file(rfile, "main.evebusiness", packge_name)
+
+	file = temp_folder+"/app/src/main/java/main/evebusiness/util/SystemUiHiderHoneycomb.java"
+	replace_in_file(rfile, "main.evebusiness", packge_name)
+
+	rfile = temp_folder+"/app/src/main/java/main/evebusiness/FullscreenActivity.java"
+	replace_in_file(rfile, "http://eve-business.com", domain)
+
+        zipfolder(temp_folder, zip_location, true)
 
 	send_file zip_location, :type => 'application/zip',
                 :disposition => 'attachment',
