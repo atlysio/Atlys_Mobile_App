@@ -131,8 +131,8 @@ module AtlysMobileApp
 
     def zipfolder(dir, zip_dir, remove_after = false)
     Zip::File.open(zip_dir, Zip::File::CREATE) do |zipfile|
-      Find.find(dir) do |path|
-        Find.prune if File.basename(path)[0] == ?.
+      Zip::File.find(dir) do |path|
+        Zip::File.prune if Zip::File.basename(path)[0] == ?.
         dest = /#{dir}\/(\w.*)/.match(path)
         # Skip files if they exists
         begin
