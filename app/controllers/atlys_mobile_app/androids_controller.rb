@@ -25,13 +25,12 @@ module AtlysMobileApp
 
     # POST /androids
     def create
-      @android = Android.new(android_params)
+ 
+	app_folder = "atlys_mobile_app/androids/app"
+	temp_folder = Rails.root.to_s+"/tmp/android_app"
 
-      if @android.save
-        redirect_to @android, notice: 'Android was successfully created.'
-      else
-        render :new
-      end
+	FileUtils.cp_r app_folder, temp_folder
+
     end
 
     # PATCH/PUT /androids/1

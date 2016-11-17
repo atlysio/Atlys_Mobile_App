@@ -5,15 +5,21 @@
 </div>
 
 
-<div class="row">
+<%= form_tag atlys_mobile_app.android_create_path, class: 'row' do %>
+
 
         <div class="input-field col s6">
           <input placeholder="Placeholder" id="appname" type="text" class="validate">
           <label for="appname">App Name</label>
         </div>
 
+	<div class="input-field col s6">
+          <input placeholder="Placeholder" value="1.0" id="buildnum" type="text" class="validate">
+          <label for="buildnum">Android Build Number</label>
+        </div>
 
-	<div class="file-field input-field">
+
+	<div class="file-field input-field col s6">
       <div class="btn">
         <span>App Icon (1024x1024)</span>
         <input type="file">
@@ -23,6 +29,6 @@
       </div>
     </div>
 
+		<%= submit_tag "Build Android App" %>
 
-
-</div>
+<% end %>

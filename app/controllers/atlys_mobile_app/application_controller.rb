@@ -1,5 +1,5 @@
 module AtlysMobileApp
-  class ApplicationController < ActionController::Base
-    protect_from_forgery with: :exception
+  class ApplicationController < ::ApplicationController
+    layout "admin"
   end
 end
