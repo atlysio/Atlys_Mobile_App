@@ -36,6 +36,13 @@ module AtlysMobileApp
 
 	FileUtils.cp_r app_folder, temp_folder
 
+	# replace string here
+	rfile = temp_folder+"/app/src/main/AndroidManifest.xml"
+	replace_in_file(rfile, "main.evebusiness", "com.mynewapp")
+
+	rfile = temp_folder+"/app/src/main/java/main/evebusiness/util/FullscreenActivity.java"
+	replace_in_file(rfile, "http://eve-business.com", "http://mydominanew.com")
+
         zipfolder(temp_folder, zip_location)
 
 	send_file zip_location, :type => 'application/zip',
@@ -62,11 +69,19 @@ module AtlysMobileApp
     FileUtils.rm_rf(dir) if remove_after
     end
 
-    # DELETE /androids/1
-    def destroy
-      @android.destroy
-      redirect_to androids_url, notice: 'Android was successfully destroyed.'
-    end
+
+
+	def replace_in_file(file, string, replace)
+	    	 filedata = File.open(file, "rb")
+	   	 contents = filedata.read
+	   	 contents.gsub! string, replace
+	   	 File.open(file, "w+") do |f|
+	   		   f.write(contents)
+	   	 end
+	end
+
+
+
 
     private
       # Use callbacks to share common setup or constraints between actions.
