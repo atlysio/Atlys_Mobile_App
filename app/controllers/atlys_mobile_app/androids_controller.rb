@@ -26,15 +26,15 @@ module AtlysMobileApp
     # POST /androids
     def create
 
-	app_folder = Gem.loaded_specs["atlys_mobile_app"].full_gem_path+"/app/views/atlys_mobile_app/androids/app/."
-	temp_folder = Rails.root.to_s+"/tmp/android_app"
-	zip_location = Rails.root.to_s+"/public/android_app.zip"
-
 	app_name = "New App Render"
-	packge_name = "com.newapp"
+	packge_name = "newapp"
 	version_code = "1"
 	version_name = "1.65"
 	domain = "http://mydominanew.com"
+
+	app_folder = Gem.loaded_specs["atlys_mobile_app"].full_gem_path+"/app/views/atlys_mobile_app/androids/app/."
+	temp_folder = Rails.root.to_s+"/tmp/android_app"
+	zip_location = Rails.root.to_s+"/public/android_app.zip"
 
 	FileUtils.rm_rf(zip_location)
 
@@ -44,10 +44,10 @@ module AtlysMobileApp
 
 	# replace string here
 	rfile = temp_folder+"/app/src/main/AndroidManifest.xml"
-	replace_in_file(rfile, "main.evebusiness", packge_name)
+	replace_in_file(rfile, "main.evebusiness", "main."+packge_name)
 
 	rfile = temp_folder+"/app/build.gradle"
-	replace_in_file(rfile, "main.evebusiness", packge_name)
+	replace_in_file(rfile, "main.evebusiness", "main."+packge_name)
 
 	rfile = temp_folder+"/app/build.gradle"
 	replace_in_file(rfile, "versionCode 4", "versionCode "+version_code)
@@ -59,19 +59,26 @@ module AtlysMobileApp
 	replace_in_file(rfile, "Eve Business", app_name)
 
 	rfile = temp_folder+"/app/src/main/java/main/evebusiness/FullscreenActivity.java"
-	replace_in_file(rfile, "main.evebusiness", packge_name)
+	replace_in_file(rfile, "main.evebusiness", "main."+packge_name)
 
 	file = temp_folder+"/app/src/main/java/main/evebusiness/util/SystemUiHider.java"
-	replace_in_file(rfile, "main.evebusiness", packge_name)
+	replace_in_file(rfile, "main.evebusiness", "main."+packge_name)
 
 	file = temp_folder+"/app/src/main/java/main/evebusiness/util/SystemUiHiderBase.java"
-	replace_in_file(rfile, "main.evebusiness", packge_name)
+	replace_in_file(rfile, "main.evebusiness", "main."+packge_name)
 
 	file = temp_folder+"/app/src/main/java/main/evebusiness/util/SystemUiHiderHoneycomb.java"
-	replace_in_file(rfile, "main.evebusiness", packge_name)
+	replace_in_file(rfile, "main.evebusiness", "main."+packge_name)
 
 	rfile = temp_folder+"/app/src/main/java/main/evebusiness/FullscreenActivity.java"
 	replace_in_file(rfile, "http://eve-business.com", domain)
+
+	fromfolder = temp_folder+"/app/src/main/java/main/evebusiness"
+	tofolder = temp_folder+"/app/src/main/java/main/"+packge_name
+	FileUtils.mv fromfolder, tofolder
+
+
+	# zip android source and send to user as download
 
         zipfolder(temp_folder, zip_location, true)
 
