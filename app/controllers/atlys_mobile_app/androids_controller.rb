@@ -34,7 +34,7 @@ module AtlysMobileApp
 	icon = params[:icon]
 
 	uploader = ImageUploader.new
-	uploader.store!(icon.read)
+	uploader.store!(icon)
 
 	puts uploader
 	puts uploader.current_path
