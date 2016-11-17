@@ -56,7 +56,10 @@ module AtlysMobileApp
 
 	FileUtils.rm_rf(zip_location)
 
-	Dir.mkdir Rails.root.to_s+"/tmp/android_app"
+	dir = Rails.root.to_s+"/tmp/android_app"
+	if !File.exist?(dir)
+	  Dir.mkdir dir
+	end
 
 	FileUtils.cp_r app_folder, temp_folder
 
