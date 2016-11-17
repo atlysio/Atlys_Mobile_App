@@ -95,8 +95,9 @@ module AtlysMobileApp
 	tofolder = temp_folder+"/app/src/main/java/main/"+packge_name
 	FileUtils.mv fromfolder, tofolder
 
+	# render icons to app
 
-	imgfile = temp_folder+"/app/src/main/ic_launcher_web.png"
+	imgfile = temp_folder+"/app/src/main/ic_launcher-web.png"
 	render_images(icon_img, "512x512", imgfile)
 
 	imgfile = temp_folder+"/app/src/main/res/mipmap-hdpi/ic_launcher.png"
