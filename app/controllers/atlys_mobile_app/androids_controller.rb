@@ -40,7 +40,7 @@ module AtlysMobileApp
 	rfile = temp_folder+"/app/src/main/AndroidManifest.xml"
 	replace_in_file(rfile, "main.evebusiness", "com.mynewapp")
 
-	rfile = temp_folder+"/app/src/main/java/main/evebusiness/util/FullscreenActivity.java"
+	rfile = temp_folder+"/app/src/main/java/main/evebusiness/FullscreenActivity.java"
 	replace_in_file(rfile, "http://eve-business.com", "http://mydominanew.com")
 
         zipfolder(temp_folder, zip_location)
