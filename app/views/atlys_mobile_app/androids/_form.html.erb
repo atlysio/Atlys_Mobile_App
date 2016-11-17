@@ -1,0 +1,17 @@
+<%= form_for(@android) do |f| %>
+  <% if @android.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@android.errors.count, "error") %> prohibited this android from being saved:</h2>
+
+      <ul>
+      <% @android.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
