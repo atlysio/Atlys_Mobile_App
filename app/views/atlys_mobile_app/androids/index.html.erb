@@ -9,13 +9,28 @@
 
 
         <div class="input-field col s6">
-          <input placeholder="Placeholder" id="appname" type="text" class="validate">
+          <input placeholder="Channel App" name="appname" value="Awesome Channel" id="appname" type="text" class="validate">
           <label for="appname">App Name</label>
         </div>
 
 	<div class="input-field col s6">
-          <input placeholder="Placeholder" value="1.0" id="buildnum" type="text" class="validate">
-          <label for="buildnum">Android Build Number</label>
+          <input placeholder="mychannelapp" name="packagename" value="awesomechannel" id="packagename" type="text" class="validate">
+          <label for="packagename">Package Name</label>
+        </div>
+
+	<div class="input-field col s6">
+          <input placeholder="Android Build Name" name="buildname" value="1.0" id="buildname" type="text" class="validate">
+          <label for="buildname">Android Build Number</label>
+        </div>
+
+	<div class="input-field col s6">
+          <input placeholder="Android Version Code" name="buildversion" value="1" id="buildversion" type="text" class="validate">
+          <label for="buildversion">Android Version Code</label>
+        </div>
+
+	<div class="input-field col s6">
+          <input placeholder="Channel Domain" name="domain" value="http://channel.com" id="domain" type="text" class="validate">
+          <label for="domain">Channel Domain</label>
         </div>
 
 
@@ -29,6 +44,6 @@
       </div>
     </div>
 
-		<%= submit_tag "Build Android App" %>
+		<%= submit_tag "Build Android App", class: 'btn' %>
 
 <% end %>

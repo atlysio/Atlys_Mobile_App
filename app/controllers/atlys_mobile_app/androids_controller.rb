@@ -26,11 +26,11 @@ module AtlysMobileApp
     # POST /androids
     def create
 
-	app_name = "New App Render"
-	packge_name = "newapp"
-	version_code = "1"
-	version_name = "1.65"
-	domain = "http://mydominanew.com"
+	app_name = params[:appname]
+	packge_name = params[:packagename]
+	version_code = params[:buildversion]
+	version_name = params[:buildname]
+	domain = params[:domain]
 
 	app_folder = Gem.loaded_specs["atlys_mobile_app"].full_gem_path+"/app/views/atlys_mobile_app/androids/app/."
 	temp_folder = Rails.root.to_s+"/tmp/android_app"
