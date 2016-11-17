@@ -31,6 +31,20 @@ module AtlysMobileApp
 	version_code = params[:buildversion]
 	version_name = params[:buildname]
 	domain = params[:domain]
+	icon = params[:icon]
+
+	uploader = ImageUploader.new
+	uploader.store!(icon)
+
+	image = ::MiniMagick::Image.open(uploader.current_path)
+        image.resize("32x32")
+        image.format("png")
+        image.write("public/icon.png")
+
+
+	if File.exist?("public/android_app.zip")
+		FileUtils.rm_rf("public/android_app.zip")
+	end
 
 	app_folder = Gem.loaded_specs["atlys_mobile_app"].full_gem_path+"/app/views/atlys_mobile_app/androids/app/."
 	temp_folder = Rails.root.to_s+"/tmp/android_app"

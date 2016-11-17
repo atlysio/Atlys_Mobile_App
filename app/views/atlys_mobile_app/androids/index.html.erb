@@ -5,7 +5,7 @@
 </div>
 
 
-<%= form_tag atlys_mobile_app.android_create_path, class: 'row' do %>
+<%= form_tag atlys_mobile_app.android_create_path, multipart: true, class: 'row' do %>
 
 
         <div class="input-field col s6">
@@ -40,7 +40,7 @@
         <input type="file">
       </div>
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
+        <input class="file-path validate" name="icon" type="text">
       </div>
     </div>
 
