@@ -18,4 +18,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 4.2.6", "< 5.1"
 
+  s.add_dependency "rubyzip"
+
 end
