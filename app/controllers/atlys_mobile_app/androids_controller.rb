@@ -36,6 +36,9 @@ module AtlysMobileApp
 	uploader = ImageUploader.new
 	uploader.store!(icon)
 
+	puts uploader
+	puts uploader.current_path
+
 	image = ::MiniMagick::Image.open(uploader.current_path)
         image.resize("32x32")
         image.format("png")
