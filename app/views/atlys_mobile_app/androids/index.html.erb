@@ -1,25 +1,3 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Androids</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @androids.each do |android| %>
-      <tr>
-        <td><%= link_to 'Show', android %></td>
-        <td><%= link_to 'Edit', edit_android_path(android) %></td>
-        <td><%= link_to 'Destroy', android, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Android', new_android_path %>

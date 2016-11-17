@@ -7,7 +7,7 @@ module AtlysMobileApp
 
     # GET /androids
     def index
-      @androids = Android.all
+
     end
 
     # GET /androids/1
