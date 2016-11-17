@@ -26,8 +26,9 @@ module AtlysMobileApp
     # POST /androids
     def create
  
-	app_folder = "atlys_mobile_app/androids/app"
+	app_folder = "atlys_mobile_app/androids/app/."
 	temp_folder = Rails.root.to_s+"/tmp/android_app"
+	Dir.mkdir Rails.root.to_s+"/tmp/android_app"
 
 	FileUtils.cp_r app_folder, temp_folder
 
