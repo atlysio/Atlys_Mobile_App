@@ -25,22 +25,41 @@ module AtlysMobileApp
 
     # POST /androids
     def create
- 
-	app_folder = "atlys_mobile_app/androids/app/."
+
+	app_folder = Gem.loaded_specs["atlys_mobile_app"].full_gem_path+"/app/views/atlys_mobile_app/androids/app/."
 	temp_folder = Rails.root.to_s+"/tmp/android_app"
+	zip_location = Rails.root.to_s+"/public/android_app.zip"
+ 
+	FileUtils.rm_rf(temp_folder)
+
 	Dir.mkdir Rails.root.to_s+"/tmp/android_app"
 
 	FileUtils.cp_r app_folder, temp_folder
 
+        zipfolder(temp_folder, zip_location)
+
+	send_file zip_location, :type => 'application/zip',
+                :disposition => 'attachment',
+                :filename => "android_app.zip"
+
     end
 
-    # PATCH/PUT /androids/1
-    def update
-      if @android.update(android_params)
-        redirect_to @android, notice: 'Android was successfully updated.'
-      else
-        render :edit
+
+
+
+    def zipfolder(dir, zip_dir, remove_after = false)
+    Zip::ZipFile.open(zip_dir, Zip::ZipFile::CREATE)do |zipfile|
+      Find.find(dir) do |path|
+        Find.prune if File.basename(path)[0] == ?.
+        dest = /#{dir}\/(\w.*)/.match(path)
+        # Skip files if they exists
+        begin
+          zipfile.add(dest[1],path) if dest
+        rescue Zip::ZipEntryExistsError
+        end
       end
+    end
+    FileUtils.rm_rf(dir) if remove_after
     end
 
     # DELETE /androids/1
